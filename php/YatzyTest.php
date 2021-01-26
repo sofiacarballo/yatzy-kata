@@ -22,6 +22,7 @@ class YatzyTest extends TestCase
         $this->assertEquals($expected, $actual);
         $this->assertEquals(50, Yatzy::yatzyScore([6, 6, 6, 6, 6]));
         $this->assertEquals(0, Yatzy::yatzyScore([6, 6, 6, 6, 3]));
+        $this->assertEquals(0, Yatzy::yatzyScore([6, 6, 3, 3, 3]));
     }
 
     public function test_1s()

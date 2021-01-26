@@ -4,31 +4,34 @@ class Yatzy
 {
     public static function chance($d1, $d2, $d3, $d4, $d5)
     {
-        $total = 0;
-        $total += $d1;
-        $total += $d2;
-        $total += $d3;
-        $total += $d4;
-        $total += $d5;
+        $arguments = func_get_args();
+        $total = array_sum ($arguments);
         return $total;
     }
 
-    public static function yatzyScore($dice)
+    public static function yatzyScore(array $dice)
     {
-        $counts = array_fill(0, count($dice) + 1, 0);
         foreach ($dice as $die) {
-            $counts[$die - 1] += 1;
+            if ($die != $dice[0]) {
+                return 0;
+            }
         }
-        foreach (range(0, count($counts) - 1) as $i) {
-            if ($counts[$i] == 5)
-                return 50;
-        }
-        return 0;
+        return 50;
     }
 
     public static function ones($d1, $d2, $d3, $d4, $d5)
     {
+        $arguments = func_get_args();
         $sum = 0;
+
+        foreach ($arguments as $argument) {
+            if ($argument == 1) {
+                $sum += 1;
+            }
+        }
+        return $sum;
+
+/*         $sum = 0;
         if ($d1 == 1)
             $sum += 1;
         if ($d2 == 1)
@@ -40,7 +43,7 @@ class Yatzy
         if ($d5 == 1)
             $sum += 1;
 
-        return $sum;
+        return $sum; */
     }
 
     public static function twos($d1, $d2, $d3, $d4, $d5)
