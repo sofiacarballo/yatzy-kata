@@ -1,7 +1,18 @@
 <?php
 
 class Yatzy
-{
+{   
+
+    public function __construct($d1, $d2, $d3, $d4, $d5)
+    {
+        $this->dice = array_fill(0, 6, 0);
+        $this->dice[0] = $d1;
+        $this->dice[1] = $d2;
+        $this->dice[2] = $d3;
+        $this->dice[3] = $d4;
+        $this->dice[4] = $d5;
+    }
+
     public static function chance($d1, $d2, $d3, $d4, $d5)
     {
         $arguments = func_get_args();
@@ -30,108 +41,94 @@ class Yatzy
             }
         }
         return $sum;
-
-/*         $sum = 0;
-        if ($d1 == 1)
-            $sum += 1;
-        if ($d2 == 1)
-            $sum += 1;
-        if ($d3 == 1)
-            $sum += 1;
-        if ($d4 == 1)
-            $sum += 1;
-        if ($d5 == 1)
-            $sum += 1;
-
-        return $sum; */
     }
 
     public static function twos($d1, $d2, $d3, $d4, $d5)
     {
+        $arguments = func_get_args();
         $sum = 0;
-        if ($d1 == 2)
-            $sum += 2;
-        if ($d2 == 2)
-            $sum += 2;
-        if ($d3 == 2)
-            $sum += 2;
-        if ($d4 == 2)
-            $sum += 2;
-        if ($d5 == 2)
-            $sum += 2;
 
+        foreach ($arguments as $argument) {
+            if ($argument == 2) {
+                $sum += 2;
+            }
+        }
         return $sum;
     }
 
     public static function threes($d1, $d2, $d3, $d4, $d5)
     {
-        $s = 0;
-        if ($d1 == 3)
-            $s += 3;
-        if ($d2 == 3)
-            $s += 3;
-        if ($d3 == 3)
-            $s += 3;
-        if ($d4 == 3)
-            $s += 3;
-        if ($d5 == 3)
-            $s += 3;
+        $arguments = func_get_args();
+        $sum = 0;
 
-        return $s;
-    }
-
-    public function __construct($d1, $d2, $d3, $d4, $_5)
-    {
-        $this->dice = array_fill(0, 6, 0);
-        $this->dice[0] = $d1;
-        $this->dice[1] = $d2;
-        $this->dice[2] = $d3;
-        $this->dice[3] = $d4;
-        $this->dice[4] = $_5;
+        foreach ($arguments as $argument) {
+            if ($argument == 3) {
+                $sum += 3;
+            }
+        }
+        return $sum;
+       
     }
 
     public function fours()
-    {
+    {   
         $sum = 0;
-        for ($at = 0; $at != 5; $at++) {
-            if ($this->dice[$at] == 4) {
+        foreach($this->dice as $num){
+            if($num == 4){
                 $sum += 4;
             }
         }
         return $sum;
     }
 
+          
+
     public function Fives()
     {
-        $s = 0;
-        $i = 0;
-        for ($i = 0; $i < 5; $i++)
-            if ($this->dice[$i] == 5)
-                $s = $s + 5;
-        return $s;
+        $sum = 0;
+        foreach($this->dice as $num){
+            if($num == 5){
+                $sum += 5;
+            }
+        }
+        return $sum;
     }
 
     public function sixes()
     {
         $sum = 0;
-        for ($at = 0; $at < 5; $at++)
-            if ($this->dice[$at] == 6)
-                $sum = $sum + 6;
+        foreach($this->dice as $num){
+            if($num == 6){
+                $sum += 6;
+            }
+        }
         return $sum;
     }
 
     public static function score_pair($d1, $d2, $d3, $d4, $d5)
-    {
-        $counts = array_fill(0, 6, 0);
-        $counts[$d1 - 1] += 1;
-        $counts[$d2 - 1] += 1;
-        $counts[$d3 - 1] += 1;
-        $counts[$d4 - 1] += 1;
-        $counts[$d5 - 1] += 1;
-        for ($at = 0; $at != 6; $at++)
-            if ($counts[6 - $at - 1] == 2)
-                return (6 - $at) * 2;
-        return 0;
+    {   
+        $arguments = func_get_args();
+        $values = array_count_values($arguments);
+        $control = 0;
+        foreach ($values as $key=>$value){
+            if($value == 2){
+                 if($key > $control){
+                     $control = $key;
+                 }
+            }
+        }
+        return $control * 2;
+        
+        // for ($i = 0; $i != 6; $i++)
+        //     if ($arguments[6 - $i - 1] == 2)
+        //         return (6 - $i) * 2;
+        // return 0;
+        // $counts = array_fill(0, 6, 0);
+        // $counts[$d1 - 1] += 1;
+        // $counts[$d2 - 1] += 1;
+        // $counts[$d3 - 1] += 1;
+        // $counts[$d4 - 1] += 1;
+        // $counts[$d5 - 1] += 1;
     }
 
     public static function two_pair($d1, $d2, $d3, $d4, $d5)
