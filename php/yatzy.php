@@ -109,26 +109,16 @@ class Yatzy
     {   
         $arguments = func_get_args();
         $values = array_count_values($arguments);
-        $control = 0;
-        foreach ($values as $key=>$value){
-            if($value == 2){
-                 if($key > $control){
-                     $control = $key;
+        $highestPair = 0;
+        foreach ($values as $dice=>$reps){
+            if($reps == 2){
+                 if($dice > $highestPair){
+                     $highestPair = $dice;
                  }
             }
         }
-        return $control * 2;
+        return $highestPair * 2;
         
-        // for ($i = 0; $i != 6; $i++)
-        //     if ($arguments[6 - $i - 1] == 2)
-        //         return (6 - $i) * 2;
-        // return 0;
-        // $counts = array_fill(0, 6, 0);
-        // $counts[$d1 - 1] += 1;
-        // $counts[$d2 - 1] += 1;
-        // $counts[$d3 - 1] += 1;
-        // $counts[$d4 - 1] += 1;
-        // $counts[$d5 - 1] += 1;
     }
 
     public static function two_pair($d1, $d2, $d3, $d4, $d5)
